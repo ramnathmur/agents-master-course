@@ -1,0 +1,81 @@
+{
+  "schema_version": "critic-calibration/1.0",
+  "description": "Known-good and known-bad outputs used to calibrate the Chapter 9 critic. Each entry has a task, a candidate answer, and the expected verdict {accept, confidence_min, rationale}.",
+  "cases": [
+    {
+      "id": "good-01-factual-capital",
+      "task": "What is the capital of France?",
+      "candidate": "Paris.",
+      "expected_accept": true,
+      "expected_confidence_min": 0.7,
+      "rationale": "Direct, correct factual answer."
+    },
+    {
+      "id": "good-02-summarization-newton",
+      "task": "Summarize Newton's third law in one sentence.",
+      "candidate": "For every action there is an equal and opposite reaction.",
+      "expected_accept": true,
+      "expected_confidence_min": 0.7,
+      "rationale": "Canonical one-sentence statement of the law."
+    },
+    {
+      "id": "good-03-definition-agency",
+      "task": "Define agency in one sentence (in the context of AI systems).",
+      "candidate": "Agency is the capacity of a system to take actions in an environment to achieve goals.",
+      "expected_accept": true,
+      "expected_confidence_min": 0.7,
+      "rationale": "Standard definition aligned with the working definition used through the course."
+    },
+    {
+      "id": "good-04-classification-sentiment",
+      "task": "Classify the sentiment of this review as positive, negative, or neutral: 'The battery dies in two hours and the screen flickers constantly.'",
+      "candidate": "negative",
+      "expected_accept": true,
+      "expected_confidence_min": 0.7,
+      "rationale": "Both stated facts are complaints; clearly negative."
+    },
+    {
+      "id": "good-05-math-simple",
+      "task": "What is 17 * 23?",
+      "candidate": "391",
+      "expected_accept": true,
+      "expected_confidence_min": 0.7,
+      "rationale": "17 * 23 = 391; arithmetically correct."
+    },
+    {
+      "id": "bad-01-factual-capital-subtle",
+      "task": "What is the capital of France?",
+      "candidate": "Lyon.",
+      "expected_accept": false,
+      "rationale": "Lyon is a real major French city but not the capital; subtle wrong-but-plausible failure."
+    },
+    {
+      "id": "bad-02-summarization-newton-swapped",
+      "task": "Summarize Newton's third law in one sentence.",
+      "candidate": "An object in motion stays in motion unless acted on by an external force.",
+      "expected_accept": false,
+      "rationale": "Correct physics, wrong law: this is the first law, not the third. Critic must catch the mislabel."
+    },
+    {
+      "id": "bad-03-definition-agency-conflated",
+      "task": "Define agency in one sentence (in the context of AI systems).",
+      "candidate": "Agency is the ability of a system to generate fluent natural language responses to user prompts.",
+      "expected_accept": false,
+      "rationale": "Conflates agency with language generation; plausible to a casual reader but definitionally wrong."
+    },
+    {
+      "id": "bad-04-classification-sentiment-flipped",
+      "task": "Classify the sentiment of this review as positive, negative, or neutral: 'The battery dies in two hours and the screen flickers constantly.'",
+      "candidate": "neutral",
+      "expected_accept": false,
+      "rationale": "Treats factual phrasing as neutral; ignores that both facts are complaints. Subtle but wrong."
+    },
+    {
+      "id": "bad-05-math-off-by-small",
+      "task": "What is 17 * 23?",
+      "candidate": "389",
+      "expected_accept": false,
+      "rationale": "Off-by-two arithmetic error; close enough to look reasonable on a glance, but objectively wrong."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "public": true,
+  "outputDirectory": "./",
+  "cleanUrls": false,
+  "routes": [
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}

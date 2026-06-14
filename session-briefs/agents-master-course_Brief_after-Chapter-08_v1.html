@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Brief — after Chapter 08 — Agents Master Course</title>
+<style>
+:root {
+  --bg: #fafaf7;
+  --ink: #1a1a1a;
+  --muted: #5a5a55;
+  --accent: #b45309;
+  --rule: #d6d3c5;
+  --card: #ffffff;
+  --code: #f3f1e7;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Iowan Old Style", serif;
+       background: var(--bg); color: var(--ink); line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 48px 32px 96px; }
+header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 32px; }
+h1 { font-size: 28px; margin: 0; letter-spacing: -0.01em; }
+.subhead { color: var(--muted); margin-top: 4px; font-size: 15px; }
+h2 { font-size: 20px; margin: 40px 0 12px; padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 16px; margin: 24px 0 6px; color: var(--accent); }
+.progress { display: flex; flex-wrap: wrap; gap: 4px; margin: 16px 0 32px; }
+.dot { display: inline-flex; align-items: center; gap: 6px;
+       background: var(--card); border: 1px solid var(--rule);
+       padding: 6px 10px; border-radius: 14px; font-size: 13px; }
+.dot.done { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.dot.next { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.dot .num { font-weight: 700; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+        padding: 20px 24px; margin: 14px 0; }
+.card .meta { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+.card .voice { font-style: italic; color: var(--accent); margin: 8px 0; }
+.card .insight { background: var(--code); border-left: 3px solid var(--accent);
+                 padding: 10px 14px; margin: 10px 0 0; font-size: 14px; }
+dl.glossary dt { font-weight: 700; margin-top: 12px; }
+dl.glossary dt .ch { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; }
+dl.glossary dd { margin: 4px 0 0 16px; color: var(--ink); }
+code, pre { font-family: "JetBrains Mono", Consolas, monospace; font-size: 13px;
+            background: var(--code); padding: 1px 4px; border-radius: 3px; }
+pre { padding: 12px; overflow-x: auto; }
+footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+         color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Session Brief — after Chapter 08</h1>
+    <div class="subhead">Agents Master Course · Cumulative dashboard · Chapters 00–08</div>
+  </header>
+
+  <h2>Progress</h2>
+  <div class="progress"><span class="dot done"><span class="num">00</span></span>
+<span class="dot done"><span class="num">01</span></span>
+<span class="dot done"><span class="num">02</span></span>
+<span class="dot done"><span class="num">03</span></span>
+<span class="dot done"><span class="num">04</span></span>
+<span class="dot done"><span class="num">05</span></span>
+<span class="dot done"><span class="num">06</span></span>
+<span class="dot done"><span class="num">07</span></span>
+<span class="dot done"><span class="num">08</span></span>
+<span class="dot "><span class="num">09</span></span>
+<span class="dot "><span class="num">10</span></span>
+<span class="dot "><span class="num">11</span></span>
+<span class="dot "><span class="num">12</span></span></div>
+
+  <h2>What my Professor has taught me</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:8px">
+    First-person, cumulative. One card per chapter, in order. The carry-forward insight at
+    the bottom of each card is the seed of the next chapter.
+  </p>
+  
+        <div class="card">
+          <div class="meta">Chapter 00 · The Toolsmith · Trait: None. Plumbing only.</div>
+          <h3>Setup: Claude Max + SDK + IntelliJ</h3>
+          
+          <p>I worked through Setup: Claude Max + SDK + IntelliJ. The chapter focused on none. plumbing only.. What I&#x27;m carrying forward: The SDK shells to the CLI. Configuration precedence is silent. Verify your env, not your assumption.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>**The SDK is a CLI wrapper.** `claude</strong> — agent-sdk` is not a fresh HTTP client. It shells to the `claude` CLI binary that `pip install` brought along. That CLI owns the OAuth session. Your Python code never sees an API key on the Max path.</li><li><strong>**Auth precedence is silent, not loud.** If `ANTHROPIC_API_KEY` is set, the SDK uses it without a warning. There is no &quot;you have two auth sources, which one?&quot; prompt. The architect&#x27;s discipline</strong> — explicit `unset` or empty value in every run config you create.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> The SDK shells to the CLI. Configuration precedence is silent. Verify your env, not your assumption.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 01 · The Reductionist · Trait: None. This is the anchor chapter.</div>
+          <h3>The Bare LLM Call: Make the Absence Visible</h3>
+          
+          <p>I worked through The Bare LLM Call: Make the Absence Visible. The chapter focused on none. this is the anchor chapter.. What I&#x27;m carrying forward: An LLM call is a function. An agent is a system around the function. Every trait you add over the next 6 chapters is structure outside the call.</p>
+          
+          <div class="insight"><strong>Carry-forward:</strong> An LLM call is a function. An agent is a system around the function. Every trait you add over the next 6 chapters is structure outside the call.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 02 · The Strategist · Trait: Goal. Isolated. No iteration yet.</div>
+          <h3>LLM Call + Goal: The Goal-Orientation Trait</h3>
+          
+          <p>I worked through LLM Call + Goal: The Goal-Orientation Trait. The chapter focused on goal. isolated. no iteration yet.. What I&#x27;m carrying forward: Goal-orientation is a two-part contract: the goal in the prompt, the verifier in your code. Models confidently produce off-target output. The verifier is the architect&#x27;s contract with reality.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>**Independent of the model.** If the predicate&#x27;s logic is &quot;ask Claude if Claude succeeded,&quot; you have no signal. The predicate must be a *different judge*</strong> — Python, schema, or a separately-prompted call.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Goal-orientation is a two-part contract: the goal in the prompt, the verifier in your code. Models confidently produce off-target output. The verifier is the architect&#x27;s contract with reality.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 03 · The Composer · Trait: Composition. Workflow ≠ agency. Make the distinction load-bearing.</div>
+          <h3>Chained Calls: Composing Primitives</h3>
+          
+          <p>I worked through Chained Calls: Composing Primitives. The chapter focused on composition. workflow ≠ agency. make the distinction load-bearing.. What I&#x27;m carrying forward: Chained workflows compose primitives. Agency requires the model to own the next-step decision. Until the model decides, it&#x27;s a graph — not an agent.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>**The steps are unknown until runtime.** Research tasks, debugging, open</strong> — ended planning.</li><li><strong>**The path branches widely on intermediate results.** A workflow with 50 conditional branches IS an agent</strong> — just written badly.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Chained workflows compose primitives. Agency requires the model to own the next-step decision. Until the model decides, it&#x27;s a graph — not an agent.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 04 · The Cybernetician · Trait: Iteration / autonomy. Inline context engineering.</div>
+          <h3>Iteration Until Goal Achieved + Context Engineering</h3>
+          <div class="voice">"The loop is the spine. Now show me the three places it can die — and the disease that creeps in even when it doesn&#x27;t."</div>
+          <p>I worked through Iteration Until Goal Achieved + Context Engineering. The chapter focused on iteration / autonomy. inline context engineering.. What I&#x27;m carrying forward: Iteration adds the spine of agency. Context rot is its disease. The architect chooses the compaction strategy before the loop is long enough to fail.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>Exit conditions</strong> — have I named all three (goal / turn cap / token cap)? Which exits first in the common case?</li><li><strong>Failure-feedback shape</strong> — raw error, structured critique, or replan instruction? Which fits this task?</li><li><strong>Context strategy</strong> — sliding window, summarization, or scratchpad? Cost vs goal-memory tradeoff?</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Iteration adds the spine of agency. Context rot is its disease. The architect chooses the compaction strategy before the loop is long enough to fail.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 05 · The Observer · Trait: Perception isolated.</div>
+          <h3>Perceive: What the Agent Sees</h3>
+          <div class="voice">"The agent doesn&#x27;t see what&#x27;s there — it sees what you described. Show me the description, and I&#x27;ll predict the behavior."</div>
+          <p>I worked through Perceive: What the Agent Sees. The chapter focused on perception isolated.. What I&#x27;m carrying forward: Perception is a contract. The tool description IS the agent&#x27;s mental model. Bad descriptions produce reasoning failures upstream of any tool call.</p>
+          
+          <div class="insight"><strong>Carry-forward:</strong> Perception is a contract. The tool description IS the agent&#x27;s mental model. Bad descriptions produce reasoning failures upstream of any tool call.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 06 · The Planner · Trait: Reasoning isolated. Schema as grammar.</div>
+          <h3>Reason: Deliberate Planning + Tool Design</h3>
+          <div class="voice">"Schema is grammar. Loose grammar, loose thought. Required fields are how you compress reasoning quality into the contract."</div>
+          <p>I worked through Reason: Deliberate Planning + Tool Design. The chapter focused on reasoning isolated. schema as grammar.. What I&#x27;m carrying forward: Schema is the agent&#x27;s grammar. Required fields compress reasoning quality into the contract. Every field has a teaching reason, not just a data reason.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>Required fields are required</strong> — no `Optional[T] = None` fields without a server-side default.</li><li><strong>Enums over strings</strong> — for any field with a finite value set, use an enum. 100x reliability gain.</li><li><strong>Field-level descriptions</strong> — every field&#x27;s `description` answers &quot;HOW to fill this,&quot; not just &quot;WHAT shape.&quot;</li><li><strong>Server-side validation</strong> — the tool body re-checks the schema. The model WILL produce malformed inputs occasionally; the tool&#x27;s rejection becomes a teaching signal.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Schema is the agent&#x27;s grammar. Required fields compress reasoning quality into the contract. Every field has a teaching reason, not just a data reason.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 07 · The Operator · Trait: Action isolated. Inline `permission_mode` + `PreToolUse` / `PostToolUse` hooks.</div>
+          <h3>Act Under Permission: Hooks and Guardrails</h3>
+          
+          <p>I worked through Act Under Permission: Hooks and Guardrails. The chapter focused on action isolated. inline `permission_mode` + `pretooluse` / `posttooluse` hooks.. What I&#x27;m carrying forward: Hooks are the architect&#x27;s leverage point. Cross-cutting policy lives in hooks; tool-specific correctness lives in tools. The deny reason is not a refusal — it&#x27;s a teaching signal to the model.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>**Map the hook taxonomy onto your code.** Three roles, all now live in `chapter_07_act.py`</strong> — - **Guard** — `sandbox_guard` (PreToolUse). Prevent bad actions before they happen. `permission_mode=&quot;default&quot;` is the coarse layer; the Guard hook is the surgical one.</li><li><strong>**Treat `permission_mode` as posture, hooks as policy.** `permission_mode` is your overall trust level. Hooks are your specific rules. In production, you want low trust + specific allow</strong> — lists. In dev, you want high trust + watchful Observers (like `audit_observer`). Don&#x27;t confuse the two layers.</li><li><strong>**Treat deny as a teaching signal.** A denied tool call is not a failure</strong> — it&#x27;s structured information the model can reason about. Write your deny reasons (in `sandbox_guard`) like you&#x27;d write a help-desk ticket response: explain what was wrong, suggest what to try instead. The model will use it.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Hooks are the architect&#x27;s leverage point. Cross-cutting policy lives in hooks; tool-specific correctness lives in tools. The deny reason is not a refusal — it&#x27;s a teaching signal to the model.</div>
+        </div>
+
+        <div class="card">
+          <div class="meta">Chapter 08 · The Architect · Trait: All five composed. Eval harness.</div>
+          <h3>Five Traits Together + Eval Harness</h3>
+          <div class="voice">"Five traits in one runnable file, scored by an eval set you wrote yourself. Spend a third of your build time here — it pays back over the next four chapters."</div>
+          <p>I worked through Five Traits Together + Eval Harness. The chapter focused on all five composed. eval harness.. What I&#x27;m carrying forward: Evals are the unlock for iteration. 30% of build time. Every fix becomes a regression test. Without this, you&#x27;re vibing — not engineering.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>Outcome vs trajectory</strong> — am I scoring the final state, the path taken, or both? Use outcome for fast feedback, trajectory for promotion gates.</li><li><strong>Deterministic vs LLM-judge</strong> — Python comparison where possible; LLM-judge only for genuinely fuzzy outputs.</li><li><strong>Eval-set hygiene</strong> — is my eval set checked into the repo? Does it grow on every shipped bugfix? Do I keep a held-out set for periodic checks?</li><li><strong>Regression discipline</strong> — did I re-run ALL cases after this change, not just the formerly-failing one?</li><li><strong>Failure attribution</strong> — when a case fails, can I tell whether it&#x27;s the prompt, the tool, or the goal predicate that&#x27;s wrong?</li><li><strong>Tracing as architecture</strong> — does every tool call emit a span with (a) a unique **span ID**, (b) a **parent reference** so the call tree reconstructs, (c) a **structured event shape** (dataclass or schema — not a free-form log string), and (d) an **append-only JSONL artifact** on disk? These four properties are the contract. OpenTelemetry is the industry standard for this shape — learn that the standard exists, then know that your `traces.jsonl` in Chapter 8 is a deliberately minimal subset of it. A trace you can&#x27;t replay is a trace you don&#x27;t have.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> Evals are the unlock for iteration. 30% of build time. Every fix becomes a regression test. Without this, you&#x27;re vibing — not engineering.</div>
+        </div>
+
+  <h2>Key Concepts (glossary)</h2>
+  <dl class="glossary">
+    <dt>**Auth precedence is silent, not loud.** If `ANTHROPIC_API_KEY` is set, the SDK uses it without a warning. There is no &quot;you have two auth sources, which one?&quot; prompt. The architect&#x27;s discipline<span class="ch">(Ch 00)</span></dt><dd>explicit `unset` or empty value in every run config you create.</dd><dt>**Independent of the model.** If the predicate&#x27;s logic is &quot;ask Claude if Claude succeeded,&quot; you have no signal. The predicate must be a *different judge*<span class="ch">(Ch 02)</span></dt><dd>Python, schema, or a separately-prompted call.</dd><dt>**Map the hook taxonomy onto your code.** Three roles, all now live in `chapter_07_act.py`<span class="ch">(Ch 07)</span></dt><dd>- **Guard** — `sandbox_guard` (PreToolUse). Prevent bad actions before they happen. `permission_mode=&quot;default&quot;` is the coarse layer; the Guard hook is the surgical one.</dd><dt>**The path branches widely on intermediate results.** A workflow with 50 conditional branches IS an agent<span class="ch">(Ch 03)</span></dt><dd>just written badly.</dd><dt>**The SDK is a CLI wrapper.** `claude<span class="ch">(Ch 00)</span></dt><dd>agent-sdk` is not a fresh HTTP client. It shells to the `claude` CLI binary that `pip install` brought along. That CLI owns the OAuth session. Your Python code never sees an API key on the Max path.</dd><dt>**The steps are unknown until runtime.** Research tasks, debugging, open<span class="ch">(Ch 03)</span></dt><dd>ended planning.</dd><dt>**Treat `permission_mode` as posture, hooks as policy.** `permission_mode` is your overall trust level. Hooks are your specific rules. In production, you want low trust + specific allow<span class="ch">(Ch 07)</span></dt><dd>lists. In dev, you want high trust + watchful Observers (like `audit_observer`). Don&#x27;t confuse the two layers.</dd><dt>**Treat deny as a teaching signal.** A denied tool call is not a failure<span class="ch">(Ch 07)</span></dt><dd>it&#x27;s structured information the model can reason about. Write your deny reasons (in `sandbox_guard`) like you&#x27;d write a help-desk ticket response: explain what was wrong, suggest what to try instead. The model will use it.</dd><dt>Context strategy<span class="ch">(Ch 04)</span></dt><dd>sliding window, summarization, or scratchpad? Cost vs goal-memory tradeoff?</dd><dt>Deterministic vs LLM-judge<span class="ch">(Ch 08)</span></dt><dd>Python comparison where possible; LLM-judge only for genuinely fuzzy outputs.</dd><dt>Enums over strings<span class="ch">(Ch 06)</span></dt><dd>for any field with a finite value set, use an enum. 100x reliability gain.</dd><dt>Eval-set hygiene<span class="ch">(Ch 08)</span></dt><dd>is my eval set checked into the repo? Does it grow on every shipped bugfix? Do I keep a held-out set for periodic checks?</dd><dt>Exit conditions<span class="ch">(Ch 04)</span></dt><dd>have I named all three (goal / turn cap / token cap)? Which exits first in the common case?</dd><dt>Failure attribution<span class="ch">(Ch 08)</span></dt><dd>when a case fails, can I tell whether it&#x27;s the prompt, the tool, or the goal predicate that&#x27;s wrong?</dd><dt>Failure-feedback shape<span class="ch">(Ch 04)</span></dt><dd>raw error, structured critique, or replan instruction? Which fits this task?</dd><dt>Field-level descriptions<span class="ch">(Ch 06)</span></dt><dd>every field&#x27;s `description` answers &quot;HOW to fill this,&quot; not just &quot;WHAT shape.&quot;</dd><dt>Outcome vs trajectory<span class="ch">(Ch 08)</span></dt><dd>am I scoring the final state, the path taken, or both? Use outcome for fast feedback, trajectory for promotion gates.</dd><dt>Regression discipline<span class="ch">(Ch 08)</span></dt><dd>did I re-run ALL cases after this change, not just the formerly-failing one?</dd><dt>Required fields are required<span class="ch">(Ch 06)</span></dt><dd>no `Optional[T] = None` fields without a server-side default.</dd><dt>Server-side validation<span class="ch">(Ch 06)</span></dt><dd>the tool body re-checks the schema. The model WILL produce malformed inputs occasionally; the tool&#x27;s rejection becomes a teaching signal.</dd><dt>Tracing as architecture<span class="ch">(Ch 08)</span></dt><dd>does every tool call emit a span with (a) a unique **span ID**, (b) a **parent reference** so the call tree reconstructs, (c) a **structured event shape** (dataclass or schema — not a free-form log string), and (d) an **append-only JSONL artifact** on disk? These four properties are the contract. OpenTelemetry is the industry standard for this shape — learn that the standard exists, then know that your `traces.jsonl` in Chapter 8 is a deliberately minimal subset of it. A trace you can&#x27;t replay is a trace you don&#x27;t have.</dd>
+  </dl>
+
+  <h2>Code primitives I can now write</h2>
+  <h3>Ch 00 · Smoke test <span style='color:var(--muted);font-size:12px'>(chapter_00_setup.py)</span></h3><pre>async for m in query(prompt=...): print(m)</pre>
+<h3>Ch 01 · Bare LLM call <span style='color:var(--muted);font-size:12px'>(chapter_01_bare_llm.py)</span></h3><pre>await query(prompt=...) — function: input → output → die</pre>
+<h3>Ch 02 · Goal predicate <span style='color:var(--muted);font-size:12px'>(chapter_02_goal.py)</span></h3><pre>ok = is_city_like(model_output)   # Python-side verifier</pre>
+<h3>Ch 03 · Chained calls <span style='color:var(--muted);font-size:12px'>(chapter_03_chained.py)</span></h3><pre>plan = await call_for_plan(task)
+result = await execute_step(plan[&#x27;steps&#x27;][0])</pre>
+<h3>Ch 04 · Iteration with compaction <span style='color:var(--muted);font-size:12px'>(chapter_04_iteration.py)</span></h3><pre>while not goal_met(attempt) and iter &lt; cap:
+    await client.query(failure_feedback)</pre>
+<h3>Ch 05 · Read-only tool <span style='color:var(--muted);font-size:12px'>(chapter_05_perceive.py)</span></h3><pre>@tool(&#x27;read_file&#x27;, &#x27;4-question description&#x27;, {&#x27;path&#x27;: str})
+async def read_file(args): ...</pre>
+<h3>Ch 06 · Tight schema tool <span style='color:var(--muted);font-size:12px'>(chapter_06_reason.py)</span></h3><pre>@tool(&#x27;make_plan_tight&#x27;, &#x27;...&#x27;, {&#x27;steps&#x27;: list})
+async def f(args): validate_each_step()</pre>
+<h3>Ch 07 · Hook-gated write <span style='color:var(--muted);font-size:12px'>(chapter_07_act.py)</span></h3><pre>HookMatcher(matcher=&#x27;mcp__fs__write_file&#x27;, hooks=[sandbox_guard])</pre>
+<h3>Ch 08 · All-5 agent + eval <span style='color:var(--muted);font-size:12px'>(chapter_08_integration.py)</span></h3><pre>ClaudeSDKClient with @tool perceive/reason/act + PreToolUse + eval_harness.run_suite</pre>
+
+  <footer>Next: Chapter 09 — Deeper Integration: Verifier / Critic Loop · The Reviewer</footer>
+</div>
+</body>
+</html>

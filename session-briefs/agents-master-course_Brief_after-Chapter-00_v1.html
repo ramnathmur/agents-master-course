@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Brief — after Chapter 00 — Agents Master Course</title>
+<style>
+:root {
+  --bg: #fafaf7;
+  --ink: #1a1a1a;
+  --muted: #5a5a55;
+  --accent: #b45309;
+  --rule: #d6d3c5;
+  --card: #ffffff;
+  --code: #f3f1e7;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Iowan Old Style", serif;
+       background: var(--bg); color: var(--ink); line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 48px 32px 96px; }
+header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 32px; }
+h1 { font-size: 28px; margin: 0; letter-spacing: -0.01em; }
+.subhead { color: var(--muted); margin-top: 4px; font-size: 15px; }
+h2 { font-size: 20px; margin: 40px 0 12px; padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 16px; margin: 24px 0 6px; color: var(--accent); }
+.progress { display: flex; flex-wrap: wrap; gap: 4px; margin: 16px 0 32px; }
+.dot { display: inline-flex; align-items: center; gap: 6px;
+       background: var(--card); border: 1px solid var(--rule);
+       padding: 6px 10px; border-radius: 14px; font-size: 13px; }
+.dot.done { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.dot.next { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.dot .num { font-weight: 700; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+        padding: 20px 24px; margin: 14px 0; }
+.card .meta { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+.card .voice { font-style: italic; color: var(--accent); margin: 8px 0; }
+.card .insight { background: var(--code); border-left: 3px solid var(--accent);
+                 padding: 10px 14px; margin: 10px 0 0; font-size: 14px; }
+dl.glossary dt { font-weight: 700; margin-top: 12px; }
+dl.glossary dt .ch { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; }
+dl.glossary dd { margin: 4px 0 0 16px; color: var(--ink); }
+code, pre { font-family: "JetBrains Mono", Consolas, monospace; font-size: 13px;
+            background: var(--code); padding: 1px 4px; border-radius: 3px; }
+pre { padding: 12px; overflow-x: auto; }
+footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+         color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Session Brief — after Chapter 00</h1>
+    <div class="subhead">Agents Master Course · Cumulative dashboard · Chapters 00–00</div>
+  </header>
+
+  <h2>Progress</h2>
+  <div class="progress"><span class="dot done"><span class="num">00</span></span>
+<span class="dot "><span class="num">01</span></span>
+<span class="dot "><span class="num">02</span></span>
+<span class="dot "><span class="num">03</span></span>
+<span class="dot "><span class="num">04</span></span>
+<span class="dot "><span class="num">05</span></span>
+<span class="dot "><span class="num">06</span></span>
+<span class="dot "><span class="num">07</span></span>
+<span class="dot "><span class="num">08</span></span>
+<span class="dot "><span class="num">09</span></span>
+<span class="dot "><span class="num">10</span></span>
+<span class="dot "><span class="num">11</span></span>
+<span class="dot "><span class="num">12</span></span></div>
+
+  <h2>What my Professor has taught me</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:8px">
+    First-person, cumulative. One card per chapter, in order. The carry-forward insight at
+    the bottom of each card is the seed of the next chapter.
+  </p>
+  
+        <div class="card">
+          <div class="meta">Chapter 00 · The Toolsmith · Trait: None. Plumbing only.</div>
+          <h3>Setup: Claude Max + SDK + IntelliJ</h3>
+          
+          <p>I worked through Setup: Claude Max + SDK + IntelliJ. The chapter focused on none. plumbing only.. What I&#x27;m carrying forward: The SDK shells to the CLI. Configuration precedence is silent. Verify your env, not your assumption.</p>
+          <ul style='margin:8px 0;padding-left:20px'><li><strong>**The SDK is a CLI wrapper.** `claude</strong> — agent-sdk` is not a fresh HTTP client. It shells to the `claude` CLI binary that `pip install` brought along. That CLI owns the OAuth session. Your Python code never sees an API key on the Max path.</li><li><strong>**Auth precedence is silent, not loud.** If `ANTHROPIC_API_KEY` is set, the SDK uses it without a warning. There is no &quot;you have two auth sources, which one?&quot; prompt. The architect&#x27;s discipline</strong> — explicit `unset` or empty value in every run config you create.</li></ul>
+          <div class="insight"><strong>Carry-forward:</strong> The SDK shells to the CLI. Configuration precedence is silent. Verify your env, not your assumption.</div>
+        </div>
+
+  <h2>Key Concepts (glossary)</h2>
+  <dl class="glossary">
+    <dt>**Auth precedence is silent, not loud.** If `ANTHROPIC_API_KEY` is set, the SDK uses it without a warning. There is no &quot;you have two auth sources, which one?&quot; prompt. The architect&#x27;s discipline<span class="ch">(Ch 00)</span></dt><dd>explicit `unset` or empty value in every run config you create.</dd><dt>**The SDK is a CLI wrapper.** `claude<span class="ch">(Ch 00)</span></dt><dd>agent-sdk` is not a fresh HTTP client. It shells to the `claude` CLI binary that `pip install` brought along. That CLI owns the OAuth session. Your Python code never sees an API key on the Max path.</dd>
+  </dl>
+
+  <h2>Code primitives I can now write</h2>
+  <h3>Ch 00 · Smoke test <span style='color:var(--muted);font-size:12px'>(chapter_00_setup.py)</span></h3><pre>async for m in query(prompt=...): print(m)</pre>
+
+  <footer>Next: Chapter 01 — The Bare LLM Call: Make the Absence Visible · The Reductionist</footer>
+</div>
+</body>
+</html>

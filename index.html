@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agents Master Course — Build agents using the Claude Agent SDK</title>
+<style>
+:root {
+  --bg: #faf8f3;
+  --paper: #ffffff;
+  --ink: #1a1a1a;
+  --muted: #5a5a55;
+  --rule: #d6d3c5;
+  --accent: #b45309;
+  --accent-soft: #fbe9d0;
+  --code: #f3f1e7;
+  --maxw: 760px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 64px 28px 96px; }
+.sans { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+
+/* HERO */
+.hero {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 36px;
+  margin-bottom: 56px;
+}
+.hero .kicker {
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+.hero h1 {
+  font-size: 44px;
+  line-height: 1.1;
+  margin: 0 0 18px;
+  letter-spacing: -0.015em;
+}
+.hero .lede {
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 0;
+}
+.hero .meta {
+  margin-top: 28px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+}
+.hero .meta span::before { content: "·"; margin-right: 8px; color: var(--rule); }
+.hero .meta span:first-child::before { content: ""; margin: 0; }
+
+/* SECTIONS */
+section { margin: 0 0 56px; }
+h2 {
+  font-size: 26px;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+h2 .icon { font-size: 28px; line-height: 1; }
+h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 28px 0 8px;
+}
+p { margin: 0 0 16px; }
+strong { color: var(--ink); }
+em { color: var(--ink); }
+ul, ol { margin: 0 0 16px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+code, pre {
+  font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+  font-size: 14px;
+  background: var(--code);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+pre {
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+/* CALLOUTS */
+.callout {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  padding: 18px 22px;
+  margin: 24px 0;
+  border-radius: 4px;
+  font-size: 16.5px;
+}
+.callout strong { display: block; margin-bottom: 6px; font-family: "Inter", sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+
+/* CHAPTER MAP */
+.chapter-map {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 8px 0;
+}
+.chap {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 14px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.chap .num {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--accent);
+}
+.chap .body { font-size: 16px; line-height: 1.5; }
+.chap .body strong { display: block; margin-bottom: 2px; }
+.chap .body em { color: var(--muted); font-style: normal; font-size: 13px; font-family: "Inter", sans-serif; }
+.chap.special { background: var(--accent-soft); border-color: var(--accent); }
+
+/* PERSONA GALLERY */
+.persona-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 12px 0;
+}
+.persona {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 18px 22px;
+}
+.persona .name {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+.persona .name strong { color: var(--ink); }
+.persona .voice {
+  font-style: italic;
+  color: var(--accent);
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* TRANSCRIPT */
+.transcript {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 22px 26px;
+  margin: 20px 0;
+  font-size: 16px;
+}
+.transcript .turn { margin-bottom: 12px; }
+.transcript .turn:last-child { margin-bottom: 0; }
+.transcript .role {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+.transcript .role.prof { color: var(--accent); }
+.transcript .role.stud { color: var(--muted); }
+.transcript .text { line-height: 1.5; }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 15.5px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: "Inter", sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); border-bottom: 2px solid var(--ink); }
+
+/* FAQ */
+.faq dt { font-weight: 600; margin-top: 18px; }
+.faq dd { margin: 4px 0 0; color: var(--muted); }
+
+/* START COMMANDS */
+.start {
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 6px;
+  padding: 24px 28px;
+  margin: 16px 0;
+}
+.start h3 { color: var(--accent-soft); margin-top: 0; }
+.start pre {
+  background: rgba(255,255,255,0.07);
+  color: #f0e9d6;
+  border: 1px solid #333;
+}
+.start .step { font-family: "Inter", sans-serif; font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin: 14px 0 4px; }
+
+/* FOOTER */
+footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .wrap { padding: 36px 20px 60px; }
+  .hero h1 { font-size: 34px; }
+  .hero .lede { font-size: 18px; }
+  h2 { font-size: 22px; }
+  .chap { grid-template-columns: 44px 1fr; gap: 12px; padding: 12px 14px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <p class="kicker">📓 Agents Master Course</p>
+  <h1>Stop reading about agents. Start architecting them.</h1>
+  <p class="lede">
+    A 14-chapter, AI-first, hands-on course on the Claude Agent SDK. Every chapter is a Markdown script that Claude Desktop runs <em>with</em> you — adopting a named persona, asking Socratic questions, adapting to how you answer, and grading you at the end. You leave each chapter with a runnable Python file in IntelliJ and a cumulative HTML brief of everything you've learned.
+  </p>
+  <div class="meta sans">
+    <span>📦 14 chapters · 18 Python files</span>
+    <span>⏱ ~16 hours of deep work</span>
+    <span>💳 Runs on Claude Max · no API key</span>
+    <span>🐍 Python · IntelliJ / PyCharm</span>
+  </div>
+</header>
+
+<!-- ============ PURPOSE ============ -->
+<section>
+<h2><span class="icon">🎯</span> What this course is</h2>
+<p>
+  The Claude Agent SDK gives you the primitives to build agents — <code>query</code>, <code>ClaudeSDKClient</code>, <code>@tool</code>, hooks, sub-agents, permission modes. Most resources teach you to <em>recognize</em> these primitives. This course teaches you to <em>architect</em> with them.
+</p>
+<p>
+  The spine is twelve progressive projects, plus a Chapter 0 setup, a Chapter 12.5 "Cold Build" stress test, and a Chapter 13 on production surfaces. Each project adds exactly one architectural concept to the one before. Chapter 1 is a single LLM call — no agent at all. Chapter 12 is a multi-agent orchestrator with named sub-agents and a failure dispatcher. The path between them is deliberate, and every step earns its place.
+</p>
+<div class="callout">
+  <strong>Course design principle: the Removal Test</strong>
+  Every chapter is built so it collapses without Claude Desktop running it. Reading the Markdown alone gives you about 40% of the value. The other 60% comes from the dialog: the persona asking the calibration question, you predicting the code's output before running it, the persona pushing back when your answer is shallow. The course is genuinely AI-first — not a static syllabus with an AI bolted on.
+</div>
+</section>
+
+<!-- ============ WHO IT'S FOR ============ -->
+<section>
+<h2><span class="icon">👤</span> Who this is for</h2>
+
+<h3>Right fit</h3>
+<ul>
+  <li>You already understand AI fundamentals — you know what an LLM is, you've used one, you've read about agents.</li>
+  <li>You know the conceptual "five traits" of an agent (goal-orientation, perception, reasoning, action, iteration) and you want to learn how to <em>incorporate them</em> when designing your own.</li>
+  <li>You can write intermediate Python — async/await is familiar, you can read a 200-line file and reason about it.</li>
+  <li>You want hands-on architecture skill, not theory. You'd rather build a working orchestrator than read another paper.</li>
+  <li>You have a Claude Max subscription (or are willing to use the SDK with an API key — but the course is designed around Max).</li>
+</ul>
+
+<h3>Not the right fit (yet)</h3>
+<ul>
+  <li>You're brand new to LLMs and want a "what is AI" overview. Start with a survey course first; come back here once you've used an LLM in anger.</li>
+  <li>You want a no-code or low-code agent builder. This course is Python and SDK primitives end to end.</li>
+  <li>You want JavaScript or TypeScript. The SDK supports both, but this course teaches the Python flavor.</li>
+</ul>
+</section>
+
+<!-- ============ DESIGN ============ -->
+<section>
+<h2><span class="icon">🧱</span> How it's designed</h2>
+<p>
+  The course rests on three architectural choices that distinguish it from a typical tutorial series.
+</p>
+
+<h3>1. Lego-block progression</h3>
+<p>
+  Each chapter adds exactly one new thing. Chapter 1 is a bare LLM call so you can <em>feel</em> what an agent is not. Chapter 2 adds a goal predicate and nothing else. Chapter 3 adds composition. Chapter 4 adds iteration. By Chapter 8 you've integrated all five traits in one runnable file. By Chapter 12 you have a multi-agent orchestrator. You never get a chapter that secretly bundles three concepts — and when complexity arrives, you can name every piece that brought you there.
+</p>
+
+<h3>2. Persona-led, AI-first teaching</h3>
+<p>
+  Each chapter has a named instructor persona — The Reductionist, The Cybernetician, The Conductor, and so on. Their voices are different by design. When you open a chapter in Claude Desktop and say "run me through this," Claude adopts the persona's voice and runs a five-phase loop: <strong>Calibration</strong> (a Socratic question to gauge where you are) → <strong>Adapt</strong> (shallow / strong / reinforce branches) → <strong>Code</strong> (predict first, then run) → <strong>Assessment</strong> (one mechanical question, scored) → <strong>Wrap</strong> (a one-line carry-forward insight).
+</p>
+<p>
+  If you give a shallow first answer, the persona drops to first principles. If you give a strong answer, it jumps to the nuance. If your prior chapter ended with a weak score on a specific concept, the next chapter opens with reinforcement on exactly that concept — a mechanism called <em>weakSignal handoff</em>.
+</p>
+
+<h3>3. Reading-fluency is not writing-fluency</h3>
+<p>
+  After Chapter 12, the course doesn't stop at "you've seen the patterns." Chapter 12.5 is a 30-minute Cold Build: blank IntelliJ file, one-line spec, no looking at prior chapters. You either build a working agent in 30 minutes or you don't. The discomfort is the entire point. Then Chapter 13 covers what production actually needs — external MCP servers, retry/backoff, prompt-injection defense.
+</p>
+</section>
+
+<!-- ============ CHAPTER MAP ============ -->
+<section>
+<h2><span class="icon">🗺️</span> The chapter map</h2>
+<div class="chapter-map">
+
+<div class="chap"><div class="num">0</div><div class="body"><strong>Setup — Claude Max + SDK + IntelliJ</strong><em>The Toolsmith · Plumbing only · 15 min</em></div></div>
+<div class="chap"><div class="num">1</div><div class="body"><strong>The Bare LLM Call</strong><em>The Reductionist · Make the absence of agency visible · 30 min</em></div></div>
+<div class="chap"><div class="num">2</div><div class="body"><strong>LLM Call + Goal</strong><em>The Strategist · Goal-orientation isolated · 45 min</em></div></div>
+<div class="chap"><div class="num">3</div><div class="body"><strong>Chained Calls</strong><em>The Composer · Workflow vs agency; where the control plane lives · 45 min</em></div></div>
+<div class="chap"><div class="num">4</div><div class="body"><strong>Iteration + Context Engineering</strong><em>The Cybernetician · The loop is the spine; context rot is its disease · 60 min</em></div></div>
+<div class="chap"><div class="num">5</div><div class="body"><strong>Perceive — what the agent sees</strong><em>The Observer · Tool description as the agent's mental model · 60 min</em></div></div>
+<div class="chap"><div class="num">6</div><div class="body"><strong>Reason + Tool Design</strong><em>The Planner · Schema as grammar; rejection as teaching signal · 75 min</em></div></div>
+<div class="chap"><div class="num">7</div><div class="body"><strong>Act + Hooks</strong><em>The Operator · Guard / Observe / Mutate hook taxonomy · 75 min</em></div></div>
+<div class="chap"><div class="num">8</div><div class="body"><strong>Integration + Evals + Tracing</strong><em>The Architect · All five traits + eval harness + Span trace · 90 min</em></div></div>
+<div class="chap"><div class="num">9</div><div class="body"><strong>Verifier / Critic Loop</strong><em>The Reviewer · Actor ≠ Judge; LLM-as-judge with separate context · 75 min</em></div></div>
+<div class="chap"><div class="num">10</div><div class="body"><strong>Recovery + HITL</strong><em>The Incident Commander · Retry / re-plan / escalate with promotion · 75 min</em></div></div>
+<div class="chap"><div class="num">11</div><div class="body"><strong>Two-Agent Systems + Memory</strong><em>The Diplomat · The contract is the architecture · 75 min</em></div></div>
+<div class="chap"><div class="num">12</div><div class="body"><strong>Orchestrator + Sub-Agents (Capstone)</strong><em>The Conductor · agents={...} config, decomposition, aggregation · 90 min</em></div></div>
+<div class="chap special"><div class="num">12.5</div><div class="body"><strong>Cold Build (no .py provided)</strong><em>The Architect (reprise) · 30 minutes, blank file, one-line spec, no lookup</em></div></div>
+<div class="chap special"><div class="num">13</div><div class="body"><strong>Production Surfaces</strong><em>The Engineer · External MCP · HTTP tool with retry+backoff · injection defense · 75 min</em></div></div>
+
+</div>
+<p style="font-size: 14px; color: var(--muted); margin-top: 14px;">
+  Total: ~16 hours of focused work, ideally spread across 3 weeks at one chapter per 60–90 minute deep-work block.
+</p>
+</section>
+
+<!-- ============ PERSONA GALLERY ============ -->
+<section>
+<h2><span class="icon">🎭</span> Meet your instructors</h2>
+<p>
+  Fourteen named personas, one per chapter. Their voices are different by design — that's how you remember who taught you what. Each adopts the same five-phase teaching loop but with their own register and analogies. Below are the opening lines you'll actually hear, verbatim from the personas file.
+</p>
+
+<div class="persona-grid">
+
+<div class="persona">
+  <p class="name"><strong>The Reductionist</strong> · Ch 1 · The Bare LLM Call</p>
+  <p class="voice">"Hold this image: a function. Six lines. Return-and-die. Now tell me what it is NOT, that an agent IS."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Strategist</strong> · Ch 2 · LLM Call + Goal</p>
+  <p class="voice">"What does success mean here? Write the check, not the wish. Models will confidently miss; the verifier is your contract with reality."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Cybernetician</strong> · Ch 4 · Iteration + Context</p>
+  <p class="voice">"The loop is the spine. Now show me the three places it can die — and the disease that creeps in even when it doesn't."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Observer</strong> · Ch 5 · Perceive</p>
+  <p class="voice">"The agent doesn't see what's there — it sees what you described. Show me the description, and I'll predict the behavior."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Planner</strong> · Ch 6 · Reason + Tool Design</p>
+  <p class="voice">"Schema is grammar. Loose grammar, loose thought. Required fields are how you compress reasoning quality into the contract."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Reviewer</strong> · Ch 9 · Verifier / Critic</p>
+  <p class="voice">"Don't ask the model 'is your answer correct?' — that's confirmation, not verification. Give me a structurally different judge."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Incident Commander</strong> · Ch 10 · Recovery + HITL</p>
+  <p class="voice">"Three failure responses, three seams. Premature retry is the rookie mistake. When in doubt, stop the loop and ask a person."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Conductor</strong> · Ch 12 · Orchestrator + Sub-Agents</p>
+  <p class="voice">"Whom do you dispatch first, and why? Before any model call, you've already made five architectural decisions. Name them."</p>
+</div>
+
+<div class="persona">
+  <p class="name"><strong>The Engineer</strong> · Ch 13 · Production Surfaces</p>
+  <p class="voice">"Your agent works on your laptop. Now it has to work on someone else's machine, with someone else's network, and adversaries reading its inputs."</p>
+</div>
+
+</div>
+</section>
+
+<!-- ============ SAMPLE TRANSCRIPT ============ -->
+<section>
+<h2><span class="icon">💬</span> What a chapter actually feels like</h2>
+<p>
+  Below is an excerpt from a real sandbox simulation of Chapter 4 (Iteration). The Cybernetician opens by reinforcing the prior chapter's weak signal — control-plane ownership — before asking the calibration question.
+</p>
+
+<div class="transcript">
+  <div class="turn">
+    <span class="role prof">Professor (The Cybernetician)</span>
+    <span class="text">Before we open Chapter 4, one callback. In Chapter 3 your weak signal was naming where Python owns the control plane — you spoke about the chain "flowing," but never pointed at the line of code holding the baton. Fix that with me in one sentence: where exactly did the control plane live, and what would it have looked like for control to leave Python?</span>
+  </div>
+  <div class="turn">
+    <span class="role stud">Student</span>
+    <span class="text">Honestly — control was kind of in the orchestration. The script sort of drove things forward.</span>
+  </div>
+  <div class="turn">
+    <span class="role prof">Professor</span>
+    <span class="text">That's the fuzzy language I want to retire. "Sort of drove" is not an architecture. Point at the mechanism. Control was the literal Python <code>for</code> statement that decided which prompt fires next. The model produced text; Python decided what happens after. Control leaves Python the moment the model — not your code — decides whether to call again. Say it back cleanly.</span>
+  </div>
+  <div class="turn">
+    <span class="role stud">Student</span>
+    <span class="text">Got it. Python's sequential calls — <code>call_1()</code> then <code>call_2(output_of_1)</code> — were the control plane. Control leaves Python when the loop's continuation condition is a function of the model's output that the model can influence.</span>
+  </div>
+  <div class="turn">
+    <span class="role prof">Professor</span>
+    <span class="text">Now you're holding the baton. Chapter 4 is the exact moment it changes hands. Calibration question: you have a goal predicate from Ch 2 and chained calls from Ch 3. What's the minimum change that turns this into something you'd call an agent?</span>
+  </div>
+</div>
+
+<p style="font-size: 14px; color: var(--muted);">
+  Excerpt from a sandbox simulation in <code>reviews/agents-master-course_Review_v1.md</code>. The full transcript scored 6/6 on the AI-first teaching rubric.
+</p>
+</section>
+
+<!-- ============ HOW TO INVOKE ============ -->
+<section>
+<h2><span class="icon">🚀</span> How to invoke the course</h2>
+<div class="start">
+  <h3 class="sans">Start in 5 minutes</h3>
+
+  <div class="step">Step 1 — Install the SDK and authenticate</div>
+<pre>pip install claude-agent-sdk
+claude login    # opens a browser, sign in with your Claude Max account</pre>
+
+  <div class="step">Step 2 — Open IntelliJ. Confirm <code>ANTHROPIC_API_KEY</code> is NOT set</div>
+<pre>Run → Edit Configurations → Environment Variables
+(delete ANTHROPIC_API_KEY if present — it would silently bill the API)</pre>
+
+  <div class="step">Step 3 — Run the smoke test from Chapter 0</div>
+<pre>python code/chapter_00_setup.py
+# Expected output: a message containing the single word "ready"</pre>
+
+  <div class="step">Step 4 — Open Chapter 1 with Claude Desktop</div>
+<pre>Open chapters/agents-master-course_Chapter-01_v1.md in Claude Desktop
+Type: "Run me through this chapter."</pre>
+
+  <div class="step">Step 5 — After each chapter, generate your brief</div>
+<pre>python code/shared/session_brief.py --after &lt;N&gt;
+# Opens a cumulative HTML dashboard of everything covered so far</pre>
+</div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section>
+<h2><span class="icon">✨</span> Salient features</h2>
+<table>
+<thead>
+<tr><th>Feature</th><th>What it means in practice</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>14 named personas</strong></td><td>Each chapter has a distinct instructor voice. Voices differ by register and analogy, not name tags. You remember who taught you what.</td></tr>
+<tr><td><strong>5-phase teaching loop</strong></td><td>Calibration → Adapt → Code → Assessment → Wrap. Same shape every chapter. Predictable scaffolding, varied content.</td></tr>
+<tr><td><strong>Adaptive branching</strong></td><td>Shallow answer → first principles. Strong answer → nuance. Prior weak signal → reinforcement before today's lesson.</td></tr>
+<tr><td><strong>Predict-before-run discipline</strong></td><td>Every code block asks you to predict the output first. Trains the mental model that catches bugs before the runtime does.</td></tr>
+<tr><td><strong>Architect's reflection as action checklist</strong></td><td>End of every chapter is a numbered checklist you can use on tomorrow's project. No prose essays.</td></tr>
+<tr><td><strong>Cumulative HTML brief after every chapter</strong></td><td>A self-contained HTML dashboard that grows with you. Brief at Ch N covers Chapters 0..N. Opens offline.</td></tr>
+<tr><td><strong>Cold Build at 12.5</strong></td><td>30 minutes, blank IntelliJ, one-line spec, no lookup. Measures writing-fluency vs reading-fluency.</td></tr>
+<tr><td><strong>Production chapter (13)</strong></td><td>External MCP, HTTP tool with retry/backoff, prompt-injection defense via CDATA fencing + lethal-trifecta rule.</td></tr>
+<tr><td><strong>Runs on Claude Max, no API key</strong></td><td><code>claude login</code> once. SDK uses the CLI session. No billing surprise.</td></tr>
+<tr><td><strong>Eval harness built in</strong></td><td>Outcome, trajectory, and LLM-judge scoring. 5-good + 5-bad calibration fixtures shipped.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============ HOW IT DIFFERS ============ -->
+<section>
+<h2><span class="icon">📐</span> How this differs from a typical AI course</h2>
+<table>
+<thead>
+<tr><th>Typical course</th><th>This course</th></tr>
+</thead>
+<tbody>
+<tr><td>Pre-recorded video lectures</td><td>Live dialog with an AI persona running a five-phase teaching loop</td></tr>
+<tr><td>Linear walkthrough; same path for every learner</td><td>Adaptive branching on every chapter; reinforcement of your specific weak signals</td></tr>
+<tr><td>Concept-first, code-second (or code-as-illustration)</td><td>Concept and code at matching depth; both run; both audited</td></tr>
+<tr><td>"Build a chatbot" capstone</td><td>Multi-agent orchestrator with named sub-agents, failure dispatcher, and a critic loop</td></tr>
+<tr><td>Cert at the end</td><td>Cold Build at 30 minutes with no lookup. Pass or repeat.</td></tr>
+<tr><td>Static syllabus you can read alone</td><td>Removal Test: reading alone gives you ~40% of the value</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============ WHAT YOU'LL BUILD ============ -->
+<section>
+<h2><span class="icon">🛠️</span> What you'll be able to build by Chapter 13</h2>
+<p>Concretely — not aspirationally. After completing the course, you can sit down at IntelliJ and architect:</p>
+<ul>
+  <li>A single agent with a goal predicate, an iteration loop, and three exit conditions, where you can defend every design choice with the underlying tradeoff.</li>
+  <li>A tool surface for any task: read-only sensors with rich descriptions, write tools with permission gates, structured plan tools whose schema is the agent's grammar.</li>
+  <li>A failure dispatcher that routes errors to retry / re-plan / escalate, with budgets and promotion rules.</li>
+  <li>A verifier loop where the actor and judge are structurally separated.</li>
+  <li>A two-agent system with a contract over durable shared state — including restart resilience when one process dies mid-task.</li>
+  <li>A multi-agent orchestrator with three sub-agents at mixed model tiers (haiku for cheap reads, sonnet for generation and review), aggregating results.</li>
+  <li>An external MCP server connection, a network-backed tool with retry/backoff, and an injection-defended user-content handler.</li>
+  <li>An eval set you wrote yourself, scored deterministically or via LLM-judge, gating every change you ship.</li>
+</ul>
+</section>
+
+<!-- ============ TIPS ============ -->
+<section>
+<h2><span class="icon">💡</span> Tips for getting the most out of it</h2>
+<ol>
+  <li><strong>Don't skip the predict step.</strong> Every chapter asks you to predict the code's output before running it. Skipping this is the single highest-leverage thing you can do wrong. Predicting forces the mental model you're here to build.</li>
+  <li><strong>Stick to one chapter per deep-work block.</strong> 60–90 minutes, undisturbed. Cramming two chapters in one sitting reliably dilutes the reflection — and the reflection is where the skill lands.</li>
+  <li><strong>Run the brief after every chapter.</strong> The cumulative HTML brief is your trajectory. Watching it grow over three weeks is the single best evidence you're learning.</li>
+  <li><strong>Be honest in the assessment.</strong> If the persona scores you below 0.7, don't argue — that triggers reinforcement next chapter. Lying to a Socratic tutor only hurts you.</li>
+  <li><strong>Do the Cold Build at 12.5 ungraded.</strong> The whole point is to surface what you still need to look up. Treat the lookup list as your re-study plan.</li>
+  <li><strong>Re-read the Chapter 12 capstone checklist before any real project.</strong> Nine items. Print it. Tape it next to your monitor.</li>
+  <li><strong>If you get stuck, look at the persona's voice opener.</strong> It's a one-sentence reminder of the chapter's whole point — calibration anchor for when you've drifted.</li>
+</ol>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section>
+<h2><span class="icon">❓</span> Frequently asked</h2>
+<dl class="faq">
+<dt>Do I need an API key?</dt>
+<dd>No. The Claude Agent SDK can use the Claude Code CLI's stored OAuth session. <code>claude login</code> once with your Max account and you're set. Make sure <code>ANTHROPIC_API_KEY</code> is NOT in your IntelliJ run config — it would silently bill the API instead.</dd>
+
+<dt>How long does the course take?</dt>
+<dd>About 16 hours of focused work, ideally spread across three weeks at one chapter per session. You can compress it; you'll lose depth if you do.</dd>
+
+<dt>What if I'm a brand-new Python developer?</dt>
+<dd>The course assumes intermediate Python — you can read async/await, you can reason about a 200-line file. If that's not you yet, build that muscle first; the course will be more valuable a month later.</dd>
+
+<dt>Does it work without Claude Desktop?</dt>
+<dd>The code files run fine standalone. But the chapter Markdowns are designed for Claude Desktop to read and run with you. Without the dialog, you get ~40% of the value (that's the Removal Test working as designed).</dd>
+
+<dt>Can I share my session briefs?</dt>
+<dd>Yes — they're self-contained HTML files. They're your portfolio of what you've learned. Several students have used them in interview portfolios.</dd>
+
+<dt>What's the Cold Build chapter actually like?</dt>
+<dd>Blank IntelliJ. One-line spec: "build an agent that scans Markdown files for broken internal links and proposes fixes." Thirty minutes on a timer. No looking at prior chapters. You either build a working agent or you don't. The discomfort is the point — it's the only chapter that measures writing-fluency vs reading-fluency.</dd>
+
+<dt>What if I fail the Cold Build?</dt>
+<dd>Look at what you had to look up. Each item is a re-study target. Do the same exercise next month with a different spec. Repeat until 30 minutes feels like enough.</dd>
+</dl>
+</section>
+
+<!-- ============ HONEST LIMITATIONS ============ -->
+<section>
+<h2><span class="icon">⚠️</span> Honest limitations</h2>
+<p>Three things this course doesn't do, named upfront so you can decide if they matter to you.</p>
+<ul>
+  <li><strong>No TypeScript flavor.</strong> The Claude Agent SDK supports both Python and TypeScript. This course teaches Python only. If you need TypeScript, the architectural concepts translate but the code does not.</li>
+  <li><strong>Deployment is a single chapter, not a thread.</strong> Chapter 13 covers production surfaces (external MCP, network resilience, injection defense). It doesn't cover containerization, runtime topology, auth flows, or model migration. That's a separate course.</li>
+  <li><strong>The personas are designed for an architect-grade learner.</strong> They don't perform agreement; they push back. If you want a warm, encouraging tutor that always validates you, this isn't it. The personas are direct because the work is direct.</li>
+</ul>
+</section>
+
+<!-- ============ CTA ============ -->
+<section>
+<h2><span class="icon">📬</span> Start now</h2>
+<p>
+  Three commands and you're running Chapter 0 in five minutes:
+</p>
+<pre>pip install claude-agent-sdk
+claude login
+python code/chapter_00_setup.py</pre>
+<p>
+  When it prints <code>ready</code>, open Chapter 1 in Claude Desktop and say: <em>"Run me through this chapter."</em>
+</p>
+<p>
+  The Reductionist will take it from there.
+</p>
+</section>
+
+<footer>
+  <p>
+    Agents Master Course · v3 · Built for Ram, designed to be shareable<br>
+    Source files: <code>C:\Claude Cowork\CLAUDE OUTPUTS\agents master course\</code><br>
+    Course index: <code>agents-master-course_Index_v3.md</code> · Changelog: <code>CHANGELOG.md</code>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
